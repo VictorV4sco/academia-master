@@ -6,8 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table
 public class Bills {
 
 	@Id
@@ -16,7 +20,19 @@ public class Bills {
 	private String name;
 	private Double value;
 	
+	@ManyToOne
+	@JoinColumn(name = "master_id")
+	private Master master;
+	
 	public Bills() {
+	}
+
+	public Bills(Long id, String name, Double value, Master master) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.value = value;
+		this.master = master;
 	}
 
 	public Long getId() {
@@ -39,13 +55,21 @@ public class Bills {
 		return value;
 	}
 
-	public void setValue(Double price) {
-		this.value = price;
+	public void setValue(Double value) {
+		this.value = value;
+	}
+
+	public Master getMaster() {
+		return master;
+	}
+
+	public void setMaster(Master master) {
+		this.master = master;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, value);
+		return Objects.hash(id, master, name, value);
 	}
 
 	@Override
@@ -57,7 +81,8 @@ public class Bills {
 		if (getClass() != obj.getClass())
 			return false;
 		Bills other = (Bills) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(value, other.value);
+		return Objects.equals(id, other.id) && Objects.equals(master, other.master) && Objects.equals(name, other.name)
+				&& Objects.equals(value, other.value);
 	}
-	
+
 }

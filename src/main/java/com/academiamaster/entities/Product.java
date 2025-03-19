@@ -9,8 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table
 public class Product {
 
 	@Id
@@ -26,11 +28,15 @@ public class Product {
 	@JoinColumn(name = "professor_id")
 	private Professor professor;
 	
+	@ManyToOne
+	@JoinColumn(name = "master_id")
+	private Master master;
+	
 	public Product() {
 	}
 
 	public Product(Long id, String name, String type, Double price, Integer amount, LocalDateTime moment,
-			Professor professor) {
+			Professor professor, Master master) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,6 +45,7 @@ public class Product {
 		this.amount = amount;
 		this.moment = moment;
 		this.professor = professor;
+		this.master = master;
 	}
 
 	public Long getId() {
@@ -97,9 +104,17 @@ public class Product {
 		this.professor = professor;
 	}
 
+	public Master getMaster() {
+		return master;
+	}
+
+	public void setMaster(Master master) {
+		this.master = master;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, id, moment, name, price, professor, type);
+		return Objects.hash(amount, id, master, moment, name, price, professor, type);
 	}
 
 	@Override
@@ -112,8 +127,9 @@ public class Product {
 			return false;
 		Product other = (Product) obj;
 		return Objects.equals(amount, other.amount) && Objects.equals(id, other.id)
-				&& Objects.equals(moment, other.moment) && Objects.equals(name, other.name)
-				&& Objects.equals(price, other.price) && Objects.equals(professor, other.professor)
-				&& Objects.equals(type, other.type);
+				&& Objects.equals(master, other.master) && Objects.equals(moment, other.moment)
+				&& Objects.equals(name, other.name) && Objects.equals(price, other.price)
+				&& Objects.equals(professor, other.professor) && Objects.equals(type, other.type);
 	}
+
 }

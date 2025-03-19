@@ -20,7 +20,7 @@ public class Professor {
 	private Double salary;
 	
 	@OneToMany(mappedBy = "professor")
-	private List<Product> products = new ArrayList<Product>();
+	private List<Product> products = new ArrayList<>();
 	
 	public Professor() {
 	}

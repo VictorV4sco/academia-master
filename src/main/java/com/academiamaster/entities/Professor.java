@@ -1,11 +1,14 @@
 package com.academiamaster.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Professor {
@@ -15,6 +18,9 @@ public class Professor {
 	private Long id;
 	private String name;
 	private Double salary;
+	
+	@OneToMany(mappedBy = "professor")
+	private List<Product> products = new ArrayList<Product>();
 	
 	public Professor() {
 	}

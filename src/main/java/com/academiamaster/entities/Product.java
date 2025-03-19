@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -18,21 +20,25 @@ public class Product {
 	private String type;
 	private Double price;
 	private Integer amount;
-	private LocalDateTime date;
-	private Professor professor_name;
+	private LocalDateTime moment;
+	
+	@ManyToOne
+	@JoinColumn(name = "professor_id")
+	private Professor professor;
 	
 	public Product() {
 	}
 
-	public Product(Long id, String name, String type, Double price, Integer amount, LocalDateTime date,
-			Professor professor_name) {
+	public Product(Long id, String name, String type, Double price, Integer amount, LocalDateTime moment,
+			Professor professor) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.price = price;
 		this.amount = amount;
-		this.date = date;
-		this.professor_name = professor_name;
+		this.moment = moment;
+		this.professor = professor;
 	}
 
 	public Long getId() {
@@ -75,25 +81,25 @@ public class Product {
 		this.amount = amount;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDateTime getMoment() {
+		return moment;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setMoment(LocalDateTime moment) {
+		this.moment = moment;
 	}
 
-	public Professor getProfessor_name() {
-		return professor_name;
+	public Professor getProfessor() {
+		return professor;
 	}
 
-	public void setProfessor_name(Professor professor_name) {
-		this.professor_name = professor_name;
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, date, id, name, price, professor_name, type);
+		return Objects.hash(amount, id, moment, name, price, professor, type);
 	}
 
 	@Override
@@ -105,9 +111,9 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return Objects.equals(amount, other.amount) && Objects.equals(date, other.date) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name) && Objects.equals(price, other.price)
-				&& Objects.equals(professor_name, other.professor_name) && Objects.equals(type, other.type);
+		return Objects.equals(amount, other.amount) && Objects.equals(id, other.id)
+				&& Objects.equals(moment, other.moment) && Objects.equals(name, other.name)
+				&& Objects.equals(price, other.price) && Objects.equals(professor, other.professor)
+				&& Objects.equals(type, other.type);
 	}
-	
 }

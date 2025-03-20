@@ -1,6 +1,5 @@
 package com.academiamaster.entities;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -19,18 +18,15 @@ public class Product {
 	private String name;
 	private String type;
 	private Double price;
-	private LocalDateTime moment;
 	
 	public Product() {
 	}
 
-	public Product(Long id, String name, String type, Double price, LocalDateTime moment) {
-		super();
+	public Product(Long id, String name, String type, Double price) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.price = price;
-		this.moment = moment;
 	}
 
 	public Long getId() {
@@ -65,17 +61,9 @@ public class Product {
 		this.price = price;
 	}
 
-	public LocalDateTime getMoment() {
-		return moment;
-	}
-
-	public void setMoment(LocalDateTime moment) {
-		this.moment = moment;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, moment, name, price, type);
+		return Objects.hash(id, name, price, type);
 	}
 
 	@Override
@@ -87,9 +75,8 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return Objects.equals(id, other.id) && Objects.equals(moment, other.moment) && Objects.equals(name, other.name)
-				&& Objects.equals(price, other.price) && Objects.equals(type, other.type);
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(price, other.price)
+				&& Objects.equals(type, other.type);
 	}
-	
-	
+
 }

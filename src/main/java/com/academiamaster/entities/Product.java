@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,31 +19,18 @@ public class Product {
 	private String name;
 	private String type;
 	private Double price;
-	private Integer amount;
 	private LocalDateTime moment;
-	
-	@ManyToOne
-	@JoinColumn(name = "professor_id")
-	private Professor professor;
-	
-	@ManyToOne
-	@JoinColumn(name = "master_id")
-	private Master master;
 	
 	public Product() {
 	}
 
-	public Product(Long id, String name, String type, Double price, Integer amount, LocalDateTime moment,
-			Professor professor, Master master) {
+	public Product(Long id, String name, String type, Double price, LocalDateTime moment) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.price = price;
-		this.amount = amount;
 		this.moment = moment;
-		this.professor = professor;
-		this.master = master;
 	}
 
 	public Long getId() {
@@ -80,14 +65,6 @@ public class Product {
 		this.price = price;
 	}
 
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
 	public LocalDateTime getMoment() {
 		return moment;
 	}
@@ -96,25 +73,9 @@ public class Product {
 		this.moment = moment;
 	}
 
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
-
-	public Master getMaster() {
-		return master;
-	}
-
-	public void setMaster(Master master) {
-		this.master = master;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, id, master, moment, name, price, professor, type);
+		return Objects.hash(id, moment, name, price, type);
 	}
 
 	@Override
@@ -126,10 +87,9 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return Objects.equals(amount, other.amount) && Objects.equals(id, other.id)
-				&& Objects.equals(master, other.master) && Objects.equals(moment, other.moment)
-				&& Objects.equals(name, other.name) && Objects.equals(price, other.price)
-				&& Objects.equals(professor, other.professor) && Objects.equals(type, other.type);
+		return Objects.equals(id, other.id) && Objects.equals(moment, other.moment) && Objects.equals(name, other.name)
+				&& Objects.equals(price, other.price) && Objects.equals(type, other.type);
 	}
-
+	
+	
 }

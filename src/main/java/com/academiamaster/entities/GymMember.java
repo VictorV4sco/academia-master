@@ -11,19 +11,21 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "gym_member")
 public class GymMember {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private Double monthly_fee;
 
 	public GymMember() {
 	}
 
-	public GymMember(Long id, String name) {
+	public GymMember(Long id, String name, Double monthly_fee) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.monthly_fee = monthly_fee;
 	}
 
 	public Long getId() {
@@ -42,9 +44,17 @@ public class GymMember {
 		this.name = name;
 	}
 
+	public Double getMonthly_fee() {
+		return monthly_fee;
+	}
+
+	public void setMonthly_fee(Double monthly_fee) {
+		this.monthly_fee = monthly_fee;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name);
+		return Objects.hash(id, monthly_fee, name);
 	}
 
 	@Override
@@ -56,7 +66,8 @@ public class GymMember {
 		if (getClass() != obj.getClass())
 			return false;
 		GymMember other = (GymMember) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
+		return Objects.equals(id, other.id) && Objects.equals(monthly_fee, other.monthly_fee)
+				&& Objects.equals(name, other.name);
 	}
 	
 }

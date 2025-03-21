@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.academiamaster.dto.GymDTO;
 import com.academiamaster.entities.Gym;
+import com.academiamaster.mappers.GymMapper;
 import com.academiamaster.repositories.GymRepository;
 
 @Service
@@ -16,9 +17,9 @@ public class GymService {
 	@Autowired
 	private GymRepository repository;
 	
-//	@Transactional(readOnly = true)
-//	private Page<GymDTO> findAllPaged(Pageable pageable) {
-//		Page<Gym> gym = repository.findAll(pageable);
-//		
-//	}
+	@Transactional(readOnly = true)
+	private Page<GymDTO> findAllPaged(Pageable pageable) {
+		Page<Gym> gym = repository.findAll(pageable);
+		return GymMapper.INSTANCE.toDTOPage(gym);
+	}
 }

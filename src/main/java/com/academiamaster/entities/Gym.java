@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +22,7 @@ public class Gym {
 	private Double gross_profit;
 	private Double net_profit;
 	
-	@OneToMany(mappedBy = "gym")
+	@OneToMany(mappedBy = "gym", fetch = FetchType.EAGER)
 	private Set<GymMember> gymMembers = new HashSet<>();
 	
 	public Gym() {

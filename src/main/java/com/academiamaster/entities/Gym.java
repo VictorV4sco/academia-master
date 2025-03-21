@@ -1,11 +1,14 @@
 package com.academiamaster.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +20,9 @@ public class Gym {
 	private Long id;
 	private Double gross_profit;
 	private Double net_profit;
+	
+	@OneToMany(mappedBy = "gym")
+	private Set<GymMember> gymMembers = new HashSet<>();
 	
 	public Gym() {
 	}
@@ -52,9 +58,17 @@ public class Gym {
 		this.net_profit = net_profit;
 	}
 
+	public Set<GymMember> getGymMembers() {
+		return gymMembers;
+	}
+
+	public void setGymMembers(Set<GymMember> gymMembers) {
+		this.gymMembers = gymMembers;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(gross_profit, id, net_profit);
+		return Objects.hash(gross_profit, gymMembers, id, net_profit);
 	}
 
 	@Override
@@ -66,8 +80,8 @@ public class Gym {
 		if (getClass() != obj.getClass())
 			return false;
 		Gym other = (Gym) obj;
-		return Objects.equals(gross_profit, other.gross_profit) && Objects.equals(id, other.id)
-				&& Objects.equals(net_profit, other.net_profit);
+		return Objects.equals(gross_profit, other.gross_profit) && Objects.equals(gymMembers, other.gymMembers)
+				&& Objects.equals(id, other.id) && Objects.equals(net_profit, other.net_profit);
 	}
 	
 }

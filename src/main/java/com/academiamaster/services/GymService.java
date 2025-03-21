@@ -18,6 +18,12 @@ public class GymService {
 	private GymRepository repository;
 	
 	@Transactional(readOnly = true)
+	public GymDTO findById(Long id) throws Exception {
+		Gym gym = repository.findById(id).orElseThrow(() -> new Exception("Recurso não encontrado"));
+		return GymMapper.INSTANCE.toDTO(gym);
+	}
+	
+	@Transactional(readOnly = true)
 	private Page<GymDTO> findAllPaged(Pageable pageable) {
 		Page<Gym> gym = repository.findAll(pageable);
 		return GymMapper.INSTANCE.toDTOPage(gym);

@@ -16,21 +16,21 @@ public class Payments {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String payer_name;
+	private String payerName;
 	private String type;
 	private Double value;
-	private LocalDateTime paymente_moment;
+	private LocalDateTime paymentMoment;
 	
 	public Payments() {
 	}
 
-	public Payments(Long id, String payer_name, String type, Double value, LocalDateTime paymente_moment) {
+	public Payments(Long id, String payerName, String type, Double value, LocalDateTime paymentMoment) {
 		super();
 		this.id = id;
-		this.payer_name = payer_name;
+		this.payerName = payerName;
 		this.type = type;
 		this.value = value;
-		this.paymente_moment = paymente_moment;
+		this.paymentMoment = paymentMoment;
 	}
 
 	public Long getId() {
@@ -41,12 +41,12 @@ public class Payments {
 		this.id = id;
 	}
 
-	public String getPayer_name() {
-		return payer_name;
+	public String getPayerName() {
+		return payerName;
 	}
 
-	public void setPayer_name(String payer_name) {
-		this.payer_name = payer_name;
+	public void setPayerName(String payerName) {
+		this.payerName = payerName;
 	}
 
 	public String getType() {
@@ -65,17 +65,17 @@ public class Payments {
 		this.value = value;
 	}
 
-	public LocalDateTime getPaymente_moment() {
-		return paymente_moment;
+	public LocalDateTime getPaymentMoment() {
+		return paymentMoment;
 	}
 
-	public void setPaymente_moment(LocalDateTime paymente_moment) {
-		this.paymente_moment = paymente_moment;
+	public void setPaymentMoment(LocalDateTime paymentMoment) {
+		this.paymentMoment = paymentMoment;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, payer_name, paymente_moment, type, value);
+		return Objects.hash(id, payerName, paymentMoment, type, value);
 	}
 
 	@Override
@@ -87,8 +87,8 @@ public class Payments {
 		if (getClass() != obj.getClass())
 			return false;
 		Payments other = (Payments) obj;
-		return Objects.equals(id, other.id) && Objects.equals(payer_name, other.payer_name)
-				&& Objects.equals(paymente_moment, other.paymente_moment) && Objects.equals(type, other.type)
+		return Objects.equals(id, other.id) && Objects.equals(payerName, other.payerName)
+				&& Objects.equals(paymentMoment, other.paymentMoment) && Objects.equals(type, other.type)
 				&& Objects.equals(value, other.value);
 	}
 	

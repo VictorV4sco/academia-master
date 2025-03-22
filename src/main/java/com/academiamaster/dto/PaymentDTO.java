@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 public record PaymentDTO(
 		Long id,
-		String payer_name,
+		String payerName,
 		String type,
 		Double value,
-		LocalDateTime paymente_moment
+		LocalDateTime paymentMoment
 		) {
 
 }

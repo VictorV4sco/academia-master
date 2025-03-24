@@ -3,6 +3,8 @@ package com.academiamaster.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,11 @@ public class PaymentController {
 
 	@Autowired
 	private PaymentService service;
+	
+	@GetMapping
+	public ResponseEntity<Page<PaymentDTO>> getAllPaged(Pageable pageable) {
+		return new ResponseEntity<>(service.findAllPaged(pageable), HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/{month}")
 	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonth(@PathVariable Integer month) {

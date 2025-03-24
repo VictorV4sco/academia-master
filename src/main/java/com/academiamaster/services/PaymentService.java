@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,12 @@ public class PaymentService {
 	public List<PaymentDTO> findAllByMonth(Integer month) {
 		List<Payments> p = repository.findByMonth(month);
 		return p.stream().map(pa -> new PaymentDTO(pa.getId(), pa.getPayerName(), pa.getType(), pa.getValue(), pa.getPaymentMoment())).collect(Collectors.toList());	
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<PaymentDTO> findAllPaged(Pageable pageable) {
+		Page<Payments> p = repository.findAll(pageable);
+		return p.map(pa -> new PaymentDTO(pa.getId(), pa.getPayerName(), pa.getType(), pa.getValue(), pa.getPaymentMoment()));
 	}
 	
 	@Transactional

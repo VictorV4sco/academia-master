@@ -12,7 +12,4 @@ public interface PaymentsRepository extends JpaRepository<Payments, Long>{
 
 	@Query("SELECT p FROM Payments p WHERE FUNCTION('MONTH', p.paymentMoment) = :month AND FUNCTION('YEAR', p.paymentMoment) = :year")
 	List<Payments> findByMonthAndYear(@Param("month") Integer month, @Param("year") Integer year);
-
-	@Query("SELECT SUM(p.value) FROM Payments p WHERE FUNCTION('MONTH', p.paymentMoment) = :month AND FUNCTION('YEAR', p.paymentMoment) = :year")
-	List<Payments> sumValuesByMonthAndYear(@Param("month") Integer month, @Param("year") Integer year);
 }

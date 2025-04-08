@@ -10,7 +10,7 @@ import com.academiamaster.entities.Payments;
 
 public interface PaymentsRepository extends JpaRepository<Payments, Long>{
 
-	@Query("SELECT p FROM Payments p WHERE FUNCTION('MONTH', p.paymentMoment) = :month")
-	List<Payments> findByMonth(@Param("month") Integer month);
+	@Query("SELECT p FROM Payments p WHERE FUNCTION('MONTH', p.paymentMoment) = :month AND FUNCTION('YEAR', p.paymentMoment) = :year")
+	List<Payments> findByMonthAndYear(@Param("month") Integer month, @Param("year") Integer year);
 
 }

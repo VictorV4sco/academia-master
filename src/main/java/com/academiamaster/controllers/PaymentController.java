@@ -29,9 +29,9 @@ public class PaymentController {
 		return new ResponseEntity<>(service.findAllPaged(pageable), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/{month}")
-	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonth(@PathVariable Integer month) {
-		return new ResponseEntity<>(service.findAllByMonth(month), HttpStatus.OK);
+	@GetMapping(value = "/{year}/{month}")
+	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month) {
+		return new ResponseEntity<>(service.findAllByMonthAndYear(month, year), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/new")

@@ -26,6 +26,12 @@ public class PaymentService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<PaymentDTO> findByDay(Integer month, Integer year, Integer day) {
+		List<Payments> p = repository.findByDay(month, year, day);
+		return p.stream().map(pa -> new PaymentDTO(pa.getId(), pa.getPayerName(), pa.getType(), pa.getValue(), pa.getPaymentMoment())).collect(Collectors.toList());	
+	}
+	
+	@Transactional(readOnly = true)
 	public Page<PaymentDTO> findAllPaged(Pageable pageable) {
 		Page<Payments> p = repository.findAll(pageable);
 		return p.map(pa -> new PaymentDTO(pa.getId(), pa.getPayerName(), pa.getType(), pa.getValue(), pa.getPaymentMoment()));

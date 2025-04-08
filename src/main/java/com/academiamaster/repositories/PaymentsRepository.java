@@ -12,4 +12,7 @@ public interface PaymentsRepository extends JpaRepository<Payments, Long>{
 
 	@Query("SELECT p FROM Payments p WHERE FUNCTION('MONTH', p.paymentMoment) = :month AND FUNCTION('YEAR', p.paymentMoment) = :year")
 	List<Payments> findByMonthAndYear(@Param("month") Integer month, @Param("year") Integer year);
+	
+	@Query("SELECT p FROM Payments p WHERE FUNCTION('MONTH', p.paymentMoment) = :month AND FUNCTION('YEAR', p.paymentMoment) = :year AND FUNCTION('DAY', p.paymentMoment) = :day")
+	List<Payments> findByDay(@Param("month") Integer month, @Param("year") Integer year, @Param("day") Integer day);
 }

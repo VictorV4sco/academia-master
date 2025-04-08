@@ -33,6 +33,11 @@ public class PaymentController {
 	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month) {
 		return new ResponseEntity<>(service.findByMonthAndYear(month, year), HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/{year}/{month}/{day}")
+	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+		return new ResponseEntity<>(service.findByMonthAndYear(month, year), HttpStatus.OK);
+	}
 	
 	@PostMapping(value = "/new")
 	public ResponseEntity<PaymentDTO> insertPayment(@RequestBody PaymentDTO dto) {

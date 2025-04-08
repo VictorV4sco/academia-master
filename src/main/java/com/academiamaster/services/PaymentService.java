@@ -20,7 +20,7 @@ public class PaymentService {
 	private PaymentsRepository repository;
 	
 	@Transactional(readOnly = true)
-	public List<PaymentDTO> findAllByMonthAndYear(Integer month, Integer year) {
+	public List<PaymentDTO> findByMonthAndYear(Integer month, Integer year) {
 		List<Payments> p = repository.findByMonthAndYear(month, year);
 		return p.stream().map(pa -> new PaymentDTO(pa.getId(), pa.getPayerName(), pa.getType(), pa.getValue(), pa.getPaymentMoment())).collect(Collectors.toList());	
 	}

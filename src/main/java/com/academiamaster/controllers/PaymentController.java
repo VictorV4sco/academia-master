@@ -31,7 +31,7 @@ public class PaymentController {
 	
 	@GetMapping(value = "/{year}/{month}")
 	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month) {
-		return new ResponseEntity<>(service.findAllByMonthAndYear(month, year), HttpStatus.OK);
+		return new ResponseEntity<>(service.findByMonthAndYear(month, year), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/new")

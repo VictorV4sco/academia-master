@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.academiamaster.dto.PaymentDTO;
 import com.academiamaster.services.PaymentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/payments")
 public class PaymentController {
@@ -24,9 +26,9 @@ public class PaymentController {
 	@Autowired
 	private PaymentService service;
 	
-	@GetMapping
-	public ResponseEntity<Page<PaymentDTO>> getAllPaged(Pageable pageable) {
-		return new ResponseEntity<>(service.findAllPaged(pageable), HttpStatus.OK);
+	@GetMapping(value = "/{year}")
+	public ResponseEntity<Page<PaymentDTO>> getPaymentsByYear(Pageable pageable, @PathVariable Integer year) {
+		return new ResponseEntity<>(service.findPaymentsPagedByYear(year, pageable), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{year}/{month}")
@@ -35,12 +37,12 @@ public class PaymentController {
 	}
 
 	@GetMapping(value = "/{year}/{month}/{day}")
-	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
-		return new ResponseEntity<>(service.findByMonthAndYear(month, year), HttpStatus.OK);
+	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable  Integer year, @PathVariable  Integer month, @PathVariable Integer day) {
+		return new ResponseEntity<>(service.findByDate(month, year, day), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/new")
-	public ResponseEntity<PaymentDTO> insertPayment(@RequestBody PaymentDTO dto) {
+	public ResponseEntity<PaymentDTO> insertPayment(@Valid @RequestBody PaymentDTO dto) {
 		return new ResponseEntity<>(service.insert(dto), HttpStatus.CREATED);
 	}
 }

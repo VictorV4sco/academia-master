@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,5 +45,10 @@ public class PaymentController {
 	@PostMapping(value = "/new")
 	public ResponseEntity<PaymentDTO> insertPayment(@Valid @RequestBody PaymentDTO dto) {
 		return new ResponseEntity<>(service.insert(dto), HttpStatus.CREATED);
+	}
+	
+	@PutMapping(value = "/update/{id}")
+	public ResponseEntity<PaymentDTO> insertPayment(@Valid @RequestBody PaymentDTO dto, @PathVariable Long id) {
+		return new ResponseEntity<>(service.update(id, dto), HttpStatus.OK);
 	}
 }

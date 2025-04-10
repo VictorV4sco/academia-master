@@ -49,4 +49,16 @@ public class PaymentService {
 		
 		return new PaymentDTO(savedPayment.getId(), savedPayment.getPayerName(), savedPayment.getType(), savedPayment.getValue(), savedPayment.getPaymentMoment());
 	}
+	
+	@Transactional
+	public PaymentDTO update(Long id, PaymentDTO dto) {
+		Payments payment = repository.getReferenceById(id);
+		payment.setPayerName(dto.payerName());
+		payment.setType(dto.type());
+		payment.setValue(dto.value());
+		payment.setPaymentMoment(dto.paymentMoment());
+		Payments savedPayment = repository.save(payment);
+		return new PaymentDTO(savedPayment.getId(), savedPayment.getPayerName(), savedPayment.getType(), savedPayment.getValue(), savedPayment.getPaymentMoment());
+
+	}
 }

@@ -18,12 +18,12 @@ public class GymController {
 	@Autowired
 	private GymService service;
 	
-	@GetMapping(value = "/{year}/{month}")
+	@GetMapping(value = "/profit/{year}/{month}")
 	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month) {
 		return new ResponseEntity<>(service.searchGrossProfitByMonth(month, year), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/{year}/{month}/{day}")
+	@GetMapping(value = "/profit/{year}/{month}/{day}")
 	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
 		return new ResponseEntity<>(service.searchGrossProfitByDay(month, year, day), HttpStatus.OK);
 	}

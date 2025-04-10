@@ -32,6 +32,9 @@ public class PaymentService {
 	@Transactional(readOnly = true)
 	public List<PaymentDTO> findByDate(Integer month, Integer year, Integer day) {
 		List<Payments> p = repository.findByDay(month, year, day);
+		if(p.size() == 0) {
+			throw new ResourceNotFoundException("No payments on this day");
+		}
 		return p.stream().map(pa -> new PaymentDTO(pa.getId(), pa.getPayerName(), pa.getType(), pa.getValue(), pa.getPaymentMoment())).collect(Collectors.toList());	
 	}
 	

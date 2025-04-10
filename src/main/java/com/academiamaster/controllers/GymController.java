@@ -20,7 +20,11 @@ public class GymController {
 	
 	@GetMapping(value = "/{year}/{month}")
 	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month) {
-		return new ResponseEntity<>(service.searchGrossProfit(month, year), HttpStatus.OK);
+		return new ResponseEntity<>(service.searchGrossProfitByMonth(month, year), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/{year}/{month}/{day}")
+	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+		return new ResponseEntity<>(service.searchGrossProfitByDay(month, year, day), HttpStatus.OK);
+	}
 }

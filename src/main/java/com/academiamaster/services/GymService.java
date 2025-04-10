@@ -14,10 +14,15 @@ public class GymService {
 	private GymRepository gymRepository;
 	
 	@Transactional(readOnly = true)
-	public GymDTO searchGrossProfit(Integer month, Integer year) {
-		Double totalProfit = gymRepository.sumValuesByMonthAndYear(month, year);
-		return new GymDTO(totalProfit);
+	public GymDTO searchGrossProfitByMonth(Integer month, Integer year) {
+		Double monthProfit = gymRepository.sumValuesByMonthAndYear(month, year);
+		return new GymDTO(monthProfit);
 	}
-	
+
+	@Transactional(readOnly = true)
+	public GymDTO searchGrossProfitByDay(Integer month, Integer year, Integer day) {
+		Double dailyProfit = gymRepository.sumValuesByDay(month, year, day);
+		return new GymDTO(dailyProfit);
+	}
 	
 }

@@ -4,14 +4,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.academiamaster.dto.PaymentDTO;
 import com.academiamaster.entities.Payments;
 import com.academiamaster.repositories.PaymentsRepository;
+import com.academiamaster.services.exceptions.DatabaseException;
+import com.academiamaster.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PaymentService {
@@ -60,5 +64,18 @@ public class PaymentService {
 		Payments savedPayment = repository.save(payment);
 		return new PaymentDTO(savedPayment.getId(), savedPayment.getPayerName(), savedPayment.getType(), savedPayment.getValue(), savedPayment.getPaymentMoment());
 
+	}
+
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public void delete(Long id) {
+		if (!repository.existsById(id)) {
+    		throw new ResourceNotFoundException("Recurso não encontrado");
+    	}
+    	try {
+            repository.deleteById(id);    		
+    	}
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
 	}
 }

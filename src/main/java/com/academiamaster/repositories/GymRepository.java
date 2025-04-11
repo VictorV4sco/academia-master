@@ -16,4 +16,7 @@ public interface GymRepository extends JpaRepository<Gym, Long>{
 			+ "FUNCTION('MONTH', p.paymentMoment) = :month AND FUNCTION('YEAR', p.paymentMoment) = :year AND FUNCTION('DAY', p.paymentMoment) = :day"
 			)
 	Double sumValuesByDay(@Param("month") Integer month, @Param("year") Integer year, @Param("day") Integer day);
+	
+	@Query("SELECT SUM(p.value) FROM Payments p WHERE FUNCTION('YEAR', p.paymentMoment) = :year")
+	Double sumOfValueByYear(@Param("year") Integer year);
 }

@@ -25,4 +25,9 @@ public class GymService {
 		return new GymDTO(dailyProfit);
 	}
 	
+	@Transactional(readOnly = true)
+	public GymDTO searchGrossProfitByYear(Integer year) {
+		Double yearProfit = gymRepository.sumOfValueByYear(year);
+		return new GymDTO(yearProfit);
+	}
 }

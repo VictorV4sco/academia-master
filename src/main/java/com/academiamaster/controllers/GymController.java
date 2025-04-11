@@ -27,4 +27,9 @@ public class GymController {
 	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
 		return new ResponseEntity<>(service.searchGrossProfitByDay(month, year, day), HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/profit/{year}")
+	public ResponseEntity<GymDTO> getSumOfPaymentsByYear(@PathVariable Integer year) {
+		return new ResponseEntity<>(service.searchGrossProfitByYear(year), HttpStatus.OK);
+	}
 }

@@ -24,6 +24,12 @@ public class PaymentService {
 	private PaymentsRepository repository;
 	
 	@Transactional(readOnly = true)
+	public PaymentDTO findById(Long id) {
+		Payments payment = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+		return new PaymentDTO(payment.getId(), payment.getPayerName(), payment.getType(), payment.getValue(), payment.getPaymentMoment());
+	}
+	
+	@Transactional(readOnly = true)
 	public List<PaymentDTO> findByMonthAndYear(Integer month, Integer year) {
 		List<Payments> p = repository.findByMonthAndYear(month, year);
 		return p.stream().map(pa -> new PaymentDTO(pa.getId(), pa.getPayerName(), pa.getType(), pa.getValue(), pa.getPaymentMoment())).collect(Collectors.toList());	

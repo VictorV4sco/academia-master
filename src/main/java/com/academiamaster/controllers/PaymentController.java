@@ -28,17 +28,22 @@ public class PaymentController {
 	@Autowired
 	private PaymentService service;
 	
-	@GetMapping(value = "/{year}")
+	@GetMapping(value = "/id/{id}")
+	public ResponseEntity<PaymentDTO> getById(@PathVariable Long id) {
+		return new ResponseEntity<>(service.findById(id), HttpStatus.CREATED);
+	}
+	
+	@GetMapping(value = "/year/{year}")
 	public ResponseEntity<Page<PaymentDTO>> getPaymentsByYear(Pageable pageable, @PathVariable Integer year) {
 		return new ResponseEntity<>(service.findPaymentsPagedByYear(year, pageable), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/{year}/{month}")
+	@GetMapping(value = "/year-month/{year}/{month}")
 	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month) {
 		return new ResponseEntity<>(service.findByMonthAndYear(month, year), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/{year}/{month}/{day}")
+	@GetMapping(value = "/year-month-day/{year}/{month}/{day}")
 	public ResponseEntity<List<PaymentDTO>> getPaymentsByMonthAndYear(@PathVariable  Integer year, @PathVariable  Integer month, @PathVariable Integer day) {
 		return new ResponseEntity<>(service.findByDate(month, year, day), HttpStatus.OK);
 	}

@@ -22,17 +22,21 @@ public class Gym {
 	private Double net_profit;
 	
 	@OneToMany(mappedBy = "gym")
-	private List<Payments> payments = new ArrayList<Payments>();
+	private List<Payments> payments = new ArrayList<>();
+
+	@OneToMany(mappedBy = "gym")
+	private List<Expenses> expenses = new ArrayList<>();
 	
 	public Gym() {
 	}
 
-	public Gym(Long id, Double gross_profit, Double net_profit, List<Payments> payments) {
+	public Gym(Long id, Double gross_profit, Double net_profit, List<Payments> payments, List<Expenses> expenses) {
 		super();
 		this.id = id;
 		this.gross_profit = gross_profit;
 		this.net_profit = net_profit;
 		this.payments = payments;
+		this.expenses = expenses;
 	}
 
 	public Long getId() {
@@ -67,9 +71,17 @@ public class Gym {
 		this.payments = payments;
 	}
 
+	public List<Expenses> getExpenses() {
+		return expenses;
+	}
+
+	public void setExpenses(List<Expenses> expenses) {
+		this.expenses = expenses;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(gross_profit, id, net_profit, payments);
+		return Objects.hash(expenses, gross_profit, id, net_profit, payments);
 	}
 
 	@Override
@@ -81,8 +93,8 @@ public class Gym {
 		if (getClass() != obj.getClass())
 			return false;
 		Gym other = (Gym) obj;
-		return Objects.equals(gross_profit, other.gross_profit) && Objects.equals(id, other.id)
-				&& Objects.equals(net_profit, other.net_profit) && Objects.equals(payments, other.payments);
+		return Objects.equals(expenses, other.expenses) && Objects.equals(gross_profit, other.gross_profit)
+				&& Objects.equals(id, other.id) && Objects.equals(net_profit, other.net_profit)
+				&& Objects.equals(payments, other.payments);
 	}
-	
 }

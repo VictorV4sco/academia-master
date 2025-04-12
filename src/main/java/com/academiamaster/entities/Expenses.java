@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Table
@@ -23,21 +21,16 @@ public class Expenses {
 	private Double value;
 	private LocalDateTime moment;
 	
-	@ManyToOne()
-	@JoinColumn(name = "expenses_id")
-	private Gym gym;
-	
 	public Expenses() {
 	}
 
-	public Expenses(Long id, String type, String name, Double value, LocalDateTime moment, Gym gym) {
+	public Expenses(Long id, String type, String name, Double value, LocalDateTime moment) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.name = name;
 		this.value = value;
 		this.moment = moment;
-		this.gym = gym;
 	}
 
 	public Long getId() {
@@ -80,17 +73,9 @@ public class Expenses {
 		this.moment = moment;
 	}
 
-	public Gym getGym() {
-		return gym;
-	}
-
-	public void setGym(Gym gym) {
-		this.gym = gym;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(gym, id, moment, name, type, value);
+		return Objects.hash(id, moment, name, type, value);
 	}
 
 	@Override
@@ -102,9 +87,9 @@ public class Expenses {
 		if (getClass() != obj.getClass())
 			return false;
 		Expenses other = (Expenses) obj;
-		return Objects.equals(gym, other.gym) && Objects.equals(id, other.id) && Objects.equals(moment, other.moment)
-				&& Objects.equals(name, other.name) && Objects.equals(type, other.type)
-				&& Objects.equals(value, other.value);
+		return Objects.equals(id, other.id) && Objects.equals(moment, other.moment) && Objects.equals(name, other.name)
+				&& Objects.equals(type, other.type) && Objects.equals(value, other.value);
 	}
+
 }
 

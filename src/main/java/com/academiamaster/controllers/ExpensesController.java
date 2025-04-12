@@ -9,11 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academiamaster.dto.ExpensesDTO;
 import com.academiamaster.services.ExpensesService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/expenses")
@@ -40,5 +44,10 @@ public class ExpensesController {
 	@GetMapping(value = "/year-month-day/{year}/{month}/{day}")
 	public ResponseEntity<List<ExpensesDTO>> getPaymentsDay(@PathVariable  Integer year, @PathVariable  Integer month, @PathVariable Integer day) {
 		return new ResponseEntity<>(expensesService.findExpensesListedByDay(year, month, day), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/new")
+	public ResponseEntity<ExpensesDTO> insertExpenses(@Valid @RequestBody ExpensesDTO dto) {
+		return new ResponseEntity<>(expensesService.insert(dto), HttpStatus.CREATED);
 	}
 }

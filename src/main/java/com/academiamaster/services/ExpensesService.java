@@ -46,5 +46,18 @@ public class ExpensesService {
 		}
 		return e.stream().map(ex -> new ExpensesDTO(ex.getId(), ex.getType(), ex.getName(), ex.getValue(), ex.getMoment())).collect(Collectors.toList());
 	}
+	
+	@Transactional
+	public ExpensesDTO insert(ExpensesDTO dto) {
+		Expenses expense = new Expenses();
+		expense.setName(dto.name());
+		expense.setType(dto.type());
+		expense.setValue(dto.value());
+		expense.setMoment(dto.moment());
+		
+		Expenses savedExpense = expensesRepository.save(expense);
+		
+		return new ExpensesDTO(savedExpense.getId(), savedExpense.getName(), savedExpense.getType(), savedExpense.getValue(), savedExpense.getMoment());
+	}
 
 }

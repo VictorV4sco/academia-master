@@ -34,7 +34,7 @@ public class ExpensesService {
 	
 	@Transactional(readOnly = true)
 	public Page<ExpensesDTO> findExpensesPagedByMonth(Integer month, Integer year, Pageable pageable) {
-		Page<Expenses> e = expensesRepository.findByMonth(year, month, pageable);
+		Page<Expenses> e = expensesRepository.findByMonth(month, year, pageable);
 		return e.map(ex -> new ExpensesDTO(ex.getId(), ex.getType(), ex.getName(), ex.getValue(), ex.getMoment()));
 	}
 	
@@ -46,4 +46,5 @@ public class ExpensesService {
 		}
 		return e.stream().map(ex -> new ExpensesDTO(ex.getId(), ex.getType(), ex.getName(), ex.getValue(), ex.getMoment())).collect(Collectors.toList());
 	}
+
 }

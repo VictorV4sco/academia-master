@@ -30,7 +30,7 @@ public class PaymentController {
 	
 	@GetMapping(value = "/id/{id}")
 	public ResponseEntity<PaymentDTO> getById(@PathVariable Long id) {
-		return new ResponseEntity<>(service.findById(id), HttpStatus.CREATED);
+		return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/year/{year}")

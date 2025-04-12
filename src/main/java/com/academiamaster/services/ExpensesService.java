@@ -60,4 +60,16 @@ public class ExpensesService {
 		return new ExpensesDTO(savedExpense.getId(), savedExpense.getName(), savedExpense.getType(), savedExpense.getValue(), savedExpense.getMoment());
 	}
 
+	@Transactional
+	public ExpensesDTO update(Long id, ExpensesDTO dto) {
+		Expenses expense = expensesRepository.getReferenceById(id);
+		expense.setName(dto.name());
+		expense.setType(dto.type());
+		expense.setValue(dto.value());
+		expense.setMoment(dto.moment());
+		
+		Expenses savedExpense = expensesRepository.save(expense);
+		
+		return new ExpensesDTO(savedExpense.getId(), savedExpense.getName(), savedExpense.getType(), savedExpense.getValue(), savedExpense.getMoment());
+	}
 }

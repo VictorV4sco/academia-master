@@ -10,11 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academiamaster.dto.ExpensesDTO;
+import com.academiamaster.dto.PaymentDTO;
 import com.academiamaster.services.ExpensesService;
 
 import jakarta.validation.Valid;
@@ -49,5 +51,10 @@ public class ExpensesController {
 	@PostMapping(value = "/new")
 	public ResponseEntity<ExpensesDTO> insertExpenses(@Valid @RequestBody ExpensesDTO dto) {
 		return new ResponseEntity<>(expensesService.insert(dto), HttpStatus.CREATED);
+	}
+	
+	@PutMapping(value = "/update/{id}")
+	public ResponseEntity<ExpensesDTO> updateExpenses(@Valid @RequestBody ExpensesDTO dto, @PathVariable Long id) {
+		return new ResponseEntity<>(expensesService.update(id, dto), HttpStatus.OK);
 	}
 }

@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.academiamaster.dto.ExpensesDTO;
 import com.academiamaster.entities.Expenses;
 import com.academiamaster.repositories.ExpensesRepository;
+import com.academiamaster.services.exceptions.DatabaseException;
 import com.academiamaster.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -71,5 +74,18 @@ public class ExpensesService {
 		Expenses savedExpense = expensesRepository.save(expense);
 		
 		return new ExpensesDTO(savedExpense.getId(), savedExpense.getName(), savedExpense.getType(), savedExpense.getValue(), savedExpense.getMoment());
+	}
+	
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public void delete(Long id) {
+		if (!expensesRepository.existsById(id)) {
+    		throw new ResourceNotFoundException("Recurso não encontrado");
+    	}
+    	try {
+    		expensesRepository.deleteById(id);    		
+    	}
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
 	}
 }

@@ -19,17 +19,22 @@ public class GymController {
 	private GymService service;
 	
 	@GetMapping(value = "/profit/{year}/{month}")
-	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month) {
+	public ResponseEntity<GymDTO> getProfitByMonth(@PathVariable Integer year, @PathVariable Integer month) {
 		return new ResponseEntity<>(service.searchGrossProfitByMonth(month, year), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/profit/{year}/{month}/{day}")
-	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
-		return new ResponseEntity<>(service.searchGrossProfitByDay(month, year, day), HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/profit/{year}")
-	public ResponseEntity<GymDTO> getSumOfPaymentsByYear(@PathVariable Integer year) {
-		return new ResponseEntity<>(service.searchGrossProfitByYear(year), HttpStatus.OK);
-	}
+//	@GetMapping(value = "/gross-profit/{year}/{month}/{day}")
+//	public ResponseEntity<GymDTO> getSumOfPaymentsByMonthAndYear(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+//		return new ResponseEntity<>(service.searchGrossProfitByDay(month, year, day), HttpStatus.OK);
+//	}
+//
+//	@GetMapping(value = "/gross-profit/{year}")
+//	public ResponseEntity<GymDTO> getSumOfPaymentsByYear(@PathVariable Integer year) {
+//		return new ResponseEntity<>(service.searchGrossProfitByYear(year), HttpStatus.OK);
+//	}
+	
+//	@GetMapping(value = "/net-profit/{year}/{month}/{day}")
+//	public ResponseEntity<GymDTO> getNetProfitByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+//		return new ResponseEntity<>(service.searchNetProfitByDay(month, year, day), HttpStatus.OK);
+//	}
 }

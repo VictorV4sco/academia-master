@@ -14,15 +14,16 @@ public class Gym {
 	private Long id = 1L;
 	private Double gross_profit;
 	private Double net_profit;
+	private Integer month;
 	
 	public Gym() {
 	}
-
-	public Gym(Long id, Double gross_profit, Double net_profit) {
-		super();
+	
+	public Gym(Long id, Double gross_profit, Double net_profit, Integer month) {
 		this.id = id;
 		this.gross_profit = gross_profit;
 		this.net_profit = net_profit;
+		this.month = month;
 	}
 
 	public Long getId() {
@@ -49,9 +50,17 @@ public class Gym {
 		this.net_profit = net_profit;
 	}
 
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(gross_profit, id, net_profit);
+		return Objects.hash(gross_profit, id, month, net_profit);
 	}
 
 	@Override
@@ -64,7 +73,7 @@ public class Gym {
 			return false;
 		Gym other = (Gym) obj;
 		return Objects.equals(gross_profit, other.gross_profit) && Objects.equals(id, other.id)
-				&& Objects.equals(net_profit, other.net_profit);
+				&& Objects.equals(month, other.month) && Objects.equals(net_profit, other.net_profit);
 	}
 
 }

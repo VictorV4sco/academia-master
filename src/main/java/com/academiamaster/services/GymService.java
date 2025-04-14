@@ -26,22 +26,5 @@ public class GymService {
 		Gym saved = gymRepository.save(gym);
 		return new GymDTO(saved.getGross_profit(), saved.getNet_profit(), saved.getMonth());
 	}
-
-//	@Transactional(readOnly = true)
-//	public GymDTO searchGrossProfitByYear(Integer year) {
-//		Double yearGrossProfit = gymRepository.sumOfValueByYear(year);
-//		return new GymDTO(yearGrossProfit);
-//	}
-//	
-//	@Transactional
-//	public GymDTO searchNetProfitByMonth(Integer month, Integer year, Integer day) {
-//		Double dailyGrossProfit = gymRepository.sumValuesByDay(month, year, day);
-//		Double dayNetProfit = gymRepository.sumExpensesValuesByDay(month, year, day);
-//		Double result = dailyGrossProfit-dayNetProfit;
-//		Gym gym = new Gym();
-//		gym.setNet_profit(result);
-//		Gym savedNetProfit = gymRepository.save(gym);
-//		return new GymDTO(savedNetProfit.getNet_profit());
-//	}
 	
 }

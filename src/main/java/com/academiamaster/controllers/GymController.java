@@ -12,13 +12,30 @@ import org.springframework.web.bind.annotation.RestController;
 import com.academiamaster.dto.GymDTO;
 import com.academiamaster.services.GymService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(value = "/gym")
+@Tag(name = "Gym", description = "Controller for Gym Owner")
 public class GymController {
 
 	@Autowired
 	private GymService service;
 	
+	@Operation(
+			description = "Find profit by month", 
+			summary = "Find profit by month", 
+			responses = {
+				@ApiResponse(description = "Ok", responseCode = "200"),
+				@ApiResponse(description = "Unauthorized", responseCode = "401"),
+				@ApiResponse(description = "Forbidden", responseCode = "403"),
+				@ApiResponse(description = "Not Found", responseCode = "404"),
+			}
+	)
+	@SecurityRequirement(name = "bearerAuth")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/profit/{year}/{month}")
 	public ResponseEntity<GymDTO> getAllProfitsByMonth(@PathVariable Integer year, @PathVariable Integer month) {
